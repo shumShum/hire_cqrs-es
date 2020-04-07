@@ -1,0 +1,43 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    title Hire CQRS/ES test app
+    link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400&display=swap"
+  - user = @conn.assigns.user
+  body
+    .menu
+      .menu-header
+        .menu-logo = link "Hire CQRS/ES test app", to: "/jobs"
+        i.fa.fa-bars
+
+      .menu-items
+        ul.menu-section
+          li.head = user.name
+          elixir:
+            items =
+              case user do
+                %{type: "COMPANY"} -> ["🏫 Компания"]
+                %{job: nil} -> ["😔 Безработный"]
+                %{job: job} -> ["👨‍🔧 #{job.title}", "🏫 #{job.company.name}","💰 #{job.salary} $"]
+              end
+          = for item <- items do
+            li.item = item
+
+    .workspace
+      = render @view_module, @view_template, assigns
+
+    .user-nav
+      .btn-group
+        button.btn.btn-default type="button"
+          = user.name
+        button.btn.btn-default.dropdown-toggle id="user-nav-drop" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        .dropdown-menu.dropdown-menu-right aria-labelledby="user-nav-drop"
+          = link "🚪 Выйти", to: Routes.session_path(@conn, :delete), method: :delete, class: "dropdown-item"
+
+    script src=Routes.static_path(@conn, "/js/app.js")

@@ -1,0 +1,22 @@
+# The directory Mix will write compiled artifacts to.
+/_build/
+
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
+
+# The directory Mix downloads your dependencies sources to.
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+orchestra-*.tar
+npm-debug.log
+/assets/node_modules/
+/priv/static/
+/log/
+.DS_Store
+tags
+config/prod.secret.exs
+trash.ex
+.elixir_ls

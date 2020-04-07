@@ -1,0 +1,17 @@
+.git
+doc
+test
+tmp
+erl_crash.dump
+*.ez
+local.exs
+.idea/
+local.exs
+uploads/*
+Dockerfile
+.dockerignore
+bench
+deploy
+README.md
+deps
+_build

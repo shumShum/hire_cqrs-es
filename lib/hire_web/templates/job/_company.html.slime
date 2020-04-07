@@ -1,0 +1,22 @@
+.desk
+  .desk-header
+    = if Enum.any?(@jobs) do
+      .title Открытые вакансии в вашей компании
+    - else
+      .title В вашей компании нет открытых вакансий
+
+  .cards
+    = for job <- @jobs do
+      .card
+        .card-title = job.title
+        .card-body-text
+          = "💰 #{job.salary} $"
+          br
+          = "👨‍🔧 Квота: #{length(job.workers)}/#{job.limit}"
+
+        .card-link = link "Изменить", to: Routes.job_path(@conn, :show, job.id)
+
+    .card.new
+      .card-title Новая вакансия
+      .card-body-text Нажмите кнопку "Создать", чтобы перейти к процессу создания вакансии
+      .card-btn = link "Создать", to: Routes.job_path(@conn, :new)

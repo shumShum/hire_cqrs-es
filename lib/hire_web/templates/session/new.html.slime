@@ -1,0 +1,12 @@
+.form-header Авторизация
+
+.form
+  .alert.alert-danger[role="alert"] = get_flash(@conn, :error)
+
+  = form_for @conn, Routes.session_path(@conn, :create), [name: :session], fn f ->
+    .form-group
+      = text_input f, :name, class: "form-control", placeholder: "Имя"
+
+      = submit "Войти", class: "red-btn"
+
+    .extra-link = link "Регистрация", to: Routes.registration_path(@conn, :new)

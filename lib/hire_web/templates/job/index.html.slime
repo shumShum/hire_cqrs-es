@@ -1,0 +1,6 @@
+- user = @conn.assigns.user
+- partial = if user.type == "COMPANY", do: "company", else: "worker"
+
+.header Вакансии
+
+= render HireWeb.JobView, "_#{partial}.html", user: user, jobs: @jobs, conn: @conn

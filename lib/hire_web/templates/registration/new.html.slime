@@ -1,0 +1,15 @@
+.form-header Регистрация
+
+.form
+  .alert.alert-danger[role="alert"] = get_flash(@conn, :error)
+
+  = form_for @conn, Routes.registration_path(@conn, :create), [name: :session], fn f ->
+    .form-group
+      = text_input f, :name, class: "form-control", placeholder: "Имя"
+
+    .form-group
+      = select f, :type, %{"Ищу работу" => "WORKER", "Компания" => "COMPANY"}, class: "form-control select-input"
+
+      = submit "Создать", class: "red-btn"
+
+    .extra-link = link "Войти", to: Routes.session_path(@conn, :new)

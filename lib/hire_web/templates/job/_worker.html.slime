@@ -1,0 +1,29 @@
+.desk
+  .desk-header
+    = if Enum.any?(@jobs) do
+      .title Найдите себе новую работу
+    - else
+      .title Работы сейчас нет, но вы держитесь
+
+  .cards
+    = for job <- @jobs do
+      .card
+        .card-title = job.title
+        .card-body-text
+          = "🏫 #{job.company.name}"
+          br
+          = "💰 #{job.salary} $"
+
+          = if @user.job do
+            elixir:
+              salary_diff = @user.job.salary - job.salary
+
+              {salary_diff_style, salary_diff_value} =
+                cond do
+                  salary_diff == 0 -> {"", "🚹"}
+                  salary_diff > 0 -> {"red-diff", "(▼ #{salary_diff} $)"}
+                  salary_diff < 0 -> {"green-diff", "(▲ #{-salary_diff} $)"}
+                end
+
+            | &nbsp;&nbsp;
+            span.salary_diff class=salary_diff_style = salary_diff_value
