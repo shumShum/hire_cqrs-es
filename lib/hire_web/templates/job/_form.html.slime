@@ -1,0 +1,15 @@
+.form-group
+  .label Описание
+  = text_input @f, :title, placeholder: "Описание"
+  = error_tag @f, :title
+
+.form-group
+  .label Зарплата
+  = number_input @f, :salary
+
+.form-group
+  .label Квота
+  = number_input @f, :limit
+
+.form-group
+  = submit "Готово", class: "btn btn-primary"

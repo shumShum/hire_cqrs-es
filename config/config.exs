@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :hire,
-  ecto_repos: [Hire.RepoRead]
+  ecto_repos: [Hire.RepoRead],
+  event_stores: [Hire.EventStore]
 
 # Configures the endpoint
 config :hire, HireWeb.Endpoint,
@@ -22,6 +23,20 @@ config :hire, HireWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :hire, Hire.Dispatcher,
+  event_store: [
+    adapter: Commanded.EventStore.Adapters.EventStore,
+    event_store: Hire.EventStore
+  ],
+  pub_sub: :local,
+  registry: :local
+
+config :commanded,
+  event_store_adapter: Commanded.EventStore.Adapters.EventStore
+
+config :commanded_ecto_projections,
+  repo: Hire.RepoRead
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

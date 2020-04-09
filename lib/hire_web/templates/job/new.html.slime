@@ -1,0 +1,6 @@
+.header Создание вакансии
+
+.desk
+  .form
+    = form_for @job, Routes.job_path(@conn, :create), fn f ->
+      = render HireWeb.JobView, "_form.html", f: f

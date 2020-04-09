@@ -6,7 +6,10 @@ defmodule Hire.Application do
   def start(_type, _args) do
     children = [
       Hire.RepoRead,
-      HireWeb.Endpoint
+      HireWeb.Endpoint,
+      Hire.Dispatcher,
+      Hire.Users.Sup,
+      Hire.Jobs.Sup
     ]
 
     opts = [strategy: :one_for_one, name: Hire.Supervisor]

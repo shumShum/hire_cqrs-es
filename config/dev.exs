@@ -1,6 +1,13 @@
 use Mix.Config
 
-# Configure your database
+config :hire, Hire.EventStore,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "hire_eventstore_dev",
+  hostname: "localhost",
+  pool_size: 10
+
 config :hire, Hire.RepoRead,
   username: "postgres",
   password: "postgres",

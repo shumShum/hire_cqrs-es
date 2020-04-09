@@ -1,0 +1,6 @@
+.header Редактирование вакансии
+
+.desk
+  .form
+    = form_for @changeset, Routes.job_path(@conn, :update, @job), fn f ->
+      = render HireWeb.JobView, "_form.html", f: f

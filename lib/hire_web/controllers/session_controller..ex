@@ -1,12 +1,12 @@
 defmodule HireWeb.SessionController do
   use HireWeb, :controller
 
-  alias Hire.Sessions
+  alias Hire.Users
 
   def new(conn, _), do: render(conn)
 
   def create(conn, %{name: name}) do
-    case Sessions.signin(name) do
+    case Users.fetch_by_name(name) do
       {:ok, user} ->
         conn
         |> put_session(:current_user, user.id)

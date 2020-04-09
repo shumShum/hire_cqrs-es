@@ -14,7 +14,7 @@
           br
           = "👨‍🔧 Квота: #{length(job.workers)}/#{job.limit}"
 
-        .card-link = link "Изменить", to: Routes.job_path(@conn, :show, job.id)
+        .card-link = link "Изменить", to: Routes.job_path(@conn, :edit, job.id)
 
     .card.new
       .card-title Новая вакансия

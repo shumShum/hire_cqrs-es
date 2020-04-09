@@ -44,7 +44,11 @@ defmodule Hire.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:better_params, "~> 0.5.0"}
+      {:better_params, "~> 0.5.0"},
+      {:commanded, "~> 1.0"},
+      {:commanded_ecto_projections, "~> 1.0"},
+      {:commanded_eventstore_adapter, "~> 1.0"},
+      {:eventstore, "~> 1.0"}
     ]
   end
 
@@ -58,6 +62,7 @@ defmodule Hire.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "event_store.init": ["event_store.drop", "event_store.create", "event_store.init"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
