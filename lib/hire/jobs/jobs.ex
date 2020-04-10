@@ -45,11 +45,9 @@ defmodule Hire.Jobs do
   end
 
   def update(id, attrs) do
-    update_job =
-      attrs
-      |> UpdateJob.new()
-      |> UpdateJob.assign_id(id)
-
-    Dispatcher.dispatch(update_job, consistency: :strong)
+    attrs
+    |> UpdateJob.new()
+    |> UpdateJob.assign_id(id)
+    |> Dispatcher.dispatch(consistency: :strong)
   end
 end

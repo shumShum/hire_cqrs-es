@@ -39,7 +39,10 @@ defmodule HireWeb.Router do
       delete "/signout", SessionController, :delete
 
       get "/", JobController, :index
-      resources "/jobs", JobController
+
+      resources "/jobs", JobController do
+        post "/get", JobController, :get
+      end
     end
   end
 end

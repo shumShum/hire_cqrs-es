@@ -4,6 +4,7 @@ defmodule Hire.Users do
 
   alias Hire.Dispatcher
   alias Hire.Users.Commands.RegisterUser
+  alias Hire.Users.Commands.GetJob
 
   alias Hire.Utils
 
@@ -22,5 +23,11 @@ defmodule Hire.Users do
     with :ok <- Dispatcher.dispatch(register_user, consistency: :strong) do
       fetch_by_name(register_user.name)
     end
+  end
+
+  def get_job(user, job_id) do
+    %{id: user.id, job_id: job_id}
+    |> GetJob.new()
+    |> Dispatcher.dispatch(consistency: :strong)
   end
 end

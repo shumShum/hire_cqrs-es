@@ -2,6 +2,7 @@ defmodule HireWeb.JobController do
   use HireWeb, :controller
 
   alias Hire.Jobs
+  alias Hire.Users
 
   def index(conn, _) do
     jobs = Jobs.all_for(conn.assigns.user)
@@ -24,6 +25,11 @@ defmodule HireWeb.JobController do
 
   def update(conn, %{id: id, job: params}) do
     :ok = Jobs.update(id, params)
+    redirect(conn, to: Routes.job_path(conn, :index))
+  end
+
+  def get(conn, %{job_id: job_id}) do
+    :ok = Users.get_job(conn.assigns.user, job_id)
     redirect(conn, to: Routes.job_path(conn, :index))
   end
 end
