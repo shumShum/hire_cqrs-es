@@ -29,5 +29,5 @@
             span.salary_diff class=salary_diff_style = salary_diff_value
 
         .form
-          = form_for :job, Routes.job_job_path(@conn, :get, job), fn f ->
+          = form_for :job, Routes.job_job_path(@conn, :get, job), fn _ ->
             = submit "Хочу!", class: "card-btn"
