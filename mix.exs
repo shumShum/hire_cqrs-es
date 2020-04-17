@@ -39,6 +39,7 @@ defmodule Hire.MixProject do
       {:phoenix_slime, "~> 0.12.0"},
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
+      {:xandra, "~> 0.11"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
@@ -48,7 +49,11 @@ defmodule Hire.MixProject do
       {:commanded, "~> 1.0"},
       {:commanded_ecto_projections, "~> 1.0"},
       {:commanded_eventstore_adapter, "~> 1.0"},
-      {:eventstore, "~> 1.0"}
+      {:eventstore, "~> 1.0"},
+      # dashboard
+      {:phoenix_live_dashboard, "~> 0.1"},
+      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_metrics, "~> 0.4"}
     ]
   end
 

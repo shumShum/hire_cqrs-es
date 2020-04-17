@@ -6,6 +6,7 @@ defmodule Hire.Application do
   def start(_type, _args) do
     children = [
       Hire.RepoRead,
+      HireWeb.Telemetry,
       HireWeb.Endpoint,
       Hire.Dispatcher,
       Hire.Users.Sup,

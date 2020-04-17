@@ -3,6 +3,8 @@ defmodule HireWeb.Router do
 
   alias HireWeb.Plugs
 
+  import Phoenix.LiveDashboard.Router
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -22,6 +24,10 @@ defmodule HireWeb.Router do
 
   scope "/", HireWeb do
     pipe_through :browser
+
+    if Mix.env() == :dev do
+      live_dashboard "/dashboard", metrics: HireWeb.Telemetry
+    end
 
     scope "/" do
       pipe_through :not_authenticated
