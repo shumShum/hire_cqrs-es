@@ -13,6 +13,12 @@ defmodule HireWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :api do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :put_secure_browser_headers
+  end
+
   pipeline :authenticated do
     plug Plugs.AuthPlug, :authenticated
   end
@@ -20,6 +26,10 @@ defmodule HireWeb.Router do
   pipeline :not_authenticated do
     plug :put_layout, {HireWeb.LayoutView, :auth}
     plug Plugs.AuthPlug, :not_authenticated
+  end
+
+  pipeline :home do
+    plug :put_layout, {HireWeb.LayoutView, :home}
   end
 
   scope "/", HireWeb do
@@ -50,5 +60,20 @@ defmodule HireWeb.Router do
         post "/get", JobController, :get
       end
     end
+
+    scope "/" do
+      pipe_through :home
+      get "/home", HomeController, :index
+    end
+  end
+
+  scope "/" do
+    pipe_through :api
+    pipe_through :authenticated
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: HireWeb.Schema,
+      context: %{pubsub: HireWeb.Endpoint},
+      json_codec: Jason
   end
 end

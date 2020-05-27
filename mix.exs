@@ -46,6 +46,13 @@ defmodule Hire.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:better_params, "~> 0.5.0"},
+      # graphql
+      {:absinthe, "~> 1.4"},
+      {:absinthe_plug, "~> 1.4.0"},
+      {:absinthe_ecto, "~> 0.1.3"},
+      {:absinthe_relay, "~> 1.4"},
+      {:absinthe_phoenix, "~> 1.4"},
+      # cqrs/es
       {:commanded, "~> 1.0"},
       {:commanded_ecto_projections, "~> 1.0"},
       {:commanded_eventstore_adapter, "~> 1.0"},

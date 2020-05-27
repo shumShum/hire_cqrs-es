@@ -1,9 +1,9 @@
 const path = require('path');
 const glob = require('glob');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -14,11 +14,13 @@ module.exports = (env, options) => ({
   },
   entry: {
     'app': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js')),
-    'auth': ['./js/auth.js'].concat(glob.sync('./vendor/**/*.js'))
+    'auth': ['./js/auth.js'].concat(glob.sync('./vendor/**/*.js')),
+    'home': ['./js/home.js'].concat(glob.sync('./vendor/**/*.js'))
   },
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../priv/static/js'),
+    publicPath: '/js/'
   },
   module: {
     rules: [
@@ -31,12 +33,26 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
     ]
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      'bootstrap-vue$': 'bootstrap-vue/src/index.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+  },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+    new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+    new VueLoaderPlugin()
   ]
 });

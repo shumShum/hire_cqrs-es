@@ -12,7 +12,8 @@ defmodule Hire.Jobs do
   def all_for(%{type: "WORKER", job_id: nil}) do
     Repo.all(
       from j in Job,
-        preload: :company
+        preload: :company,
+        select: %{j | workers: []}
     )
   end
 
@@ -20,7 +21,8 @@ defmodule Hire.Jobs do
     Repo.all(
       from j in Job,
         where: j.id != ^current_job_id,
-        preload: :company
+        preload: :company,
+        select: %{j | workers: []}
     )
   end
 

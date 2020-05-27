@@ -14,7 +14,10 @@ defmodule HireWeb.Plugs.AuthPlug do
 
       user_id ->
         user = Users.get_by_id(user_id)
-        assign(conn, :user, user)
+
+        conn
+        |> Absinthe.Plug.put_options(context: %{user: user})
+        |> assign(:user, user)
     end
   end
 
